@@ -1,0 +1,40 @@
+Gr - A (2)
+
+ create database hotel;
+
+ use hotel;
+
+ create table customers (cust_id int primary key, first_name varchar(20), last_name varchar(20), email varchar(30));
+ 
+ insert into customers values (1, "Shivam", "Awasare", "shivamawasare@gmail.com");
+ insert into customers values (2, "Lavanya", "Moolya", "lavanyamoolya@gmail.com");
+ insert into customers values (3, "Sakshi", "Takalkar", "saktakalkar@yahoo.com");
+ insert into customers values (4, "Jiten", "Nilawar", "jiten21@yahoo.com");
+ insert into customers values (5, "Avishkar", "Karche", "avikarche@bing.com");
+ 
+ create table orders (order_id int primary key, cust_id int, order_date date, total int, foreign key (cust_id) references customers (cust_id));
+ insert into orders values (101, 1, "2023-01-15", 200);
+ insert into orders values (102, 2, "2023-07-19", 500);
+ insert into orders values (103, 1, "2021-09-19", 20);
+ insert into orders values (104, 3, "2019-05-19", 5);
+ insert into orders values (105, 4, "2016-05-19", 50);
+ 
+ select customers.first_name, customers.last_name, orders.order_id from customers inner join orders on customers.cust_id = orders.cust_id;
+
+ select customers.first_name, customers.last_name, orders.order_id from customers left join orders on customers.cust_id = orders.cust_id;
+ 
+ select customers.first_name, customers.last_name, orders.order_id from customers right join orders on customers.cust_id = orders.cust_id;
+ 
+ select customers.first_name, customers.last_name, (select count(*) from orders where orders.cust_id = customers.cust_id ) as total from customers where customers.cust_id =1;
+ 
+ select first_name, last_name from customers where cust_id in (select distinct cust_id from orders);
+ 
+ select first_name, last_name from customers as c where exists (select 1 from orders as o where o.cust_id = c.cust_id);
+
+ create view custorders as select customers.first_name, customers.last_name, orders.order_id, orders.order_date, orders.total  from customers left join orders on customers.cust_id = orders.cust_id;
+ 
+ select * from custorders;
+ 
+ 
+
+ 
