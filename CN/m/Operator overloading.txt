@@ -1,0 +1,33 @@
+#include<iostream>
+using namspace std;
+
+class complex{
+      
+        int real,imag;
+        public:
+        complex (intx,inty){
+               real=x;
+               imag=y;
+       }
+      complex operator+(const complex obj){
+    
+      complex result;
+      result.real=obj.real+real;
+      result.imag=obj.imag+imag;
+
+      return result;
+    }
+
+      void display()
+     {
+       cout<<real<<  <<imag<<endl;
+     }
+};
+ int main(){
+
+    complex c1(10,20),c2(30,40);
+    complex c3=c1+c2;
+    c3.display();
+
+    return 0;
+}
